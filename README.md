@@ -21,29 +21,42 @@ improving the overall quality of the existing software. For this limited release
 ability to perform inference (i.e., detect good or bad patterns) on code. In subsequent releases of MPCC, we may also include
 the ability to train new models on other code bases, including users’ own proprietary ones.
 
-## Pre-Setup Instructions
-For Linux, download the .tar.gz and then perform:
+## Installation Instructions
 
-*tar xzvf MP-CodeCheck_v0.1.2_22-04-19.tar.gz*
+Installation instructions for Linux SUSE can be found below. If you encounter any trouble with
+these steps, please contact support@merly.ai for assistance.
 
-This will extract the files from the compressed tar ball.
+For your setup in Linux SUSE, go to the Command Line Interface (CLI) and execute the following commands. where `<key>` is your product key:
 
-## Setup Instructions
-Prior to running inference and reviewing the results, let’s set up the environment. To run MPCC, you’ll need the following three
+```
+  mkdir MPCC
+  cd MPCC/
+  curl -OL https://github.com/merly-ai/MP-CodeCheckBin-Suse/raw/main/bin/latest/MerlyInstaller
+  chmod +x MerlyInstaller
+  ./MerlyInstaller -k <key> install
+```
+Note that if you previously installed MP-CodeCheck but now have a product key, running the MerlyInstaller step will register
+the key, and is safe to be performed.
+  
+You’re now ready to launch MP-CodeCheck!
+
+## Folder Structure
+Prior to running inference and reviewing the results, let’s make sure the environment is set up correctly. To run MPCC, you’ll need the following three
 things (at a minimum):
-1. A model trained on code (provided by Merly).
-2. The MPCC executable (provided by Merly).
+1. A model trained on code (provided during setup).
+2. The MPCC executable (provided during setup).
 3. A code base to run inference against (provided by you, the user).
 
-Please ensure you place both the MPCC model and the executable files in the same folder. Then, to simplify inference, we
-recommend you place the code repository folder in the same directory as MPCC. Your setup is now complete!
+Please ensure both the MPCC model and the executable file were placed in the same folder. (This should have been completed
+for you by following the steps in setup.)
+Then, to simplify inference, we recommend you place the code repository folder in the same directory as MPCC. Your setup is now complete!
 
 
 ## Launching MP-CodeCheck
 Now that setup is complete, let’s launch MPCC to perform inference analysis. From the command line interface (CLI), type the
 following (where ”[code base folder]” is a directory that contains the code you want to analyze):
 
-*MPCC.exe infer -D [code base folder]*
+*./MPCC.exe infer -D [code base folder]*
 
 When run successfully, MPCC will display information that looks similar to the following screen. This shows the progress of MPCC extracting the code DNA from the training data.
 
