@@ -21,13 +21,26 @@ improving the overall quality of the existing software. For this limited release
 ability to perform inference (i.e., detect good or bad patterns) on code. In subsequent releases of MPCC, we may also include
 the ability to train new models on other code bases, including users’ own proprietary ones.
 
+
 ## Installation Instructions
 
-Installation instructions for Linux SUSE can be found below. If you encounter any trouble with
-these steps, please contact support@merly.ai for assistance.
+MPCC's installation instructions for various operating systems are listed below. If you previously installed MP-CodeCheck without a product key, but now have one, it is safe to run the MerlyInstaller again to register MPCC
 
-For your setup in Linux SUSE, go to the Command Line Interface (CLI) and execute the following commands. where `<key>` is your product key:
+If you encounter any trouble with these steps, please contact support@merly.ai for assistance.
 
+### Linux (RedHat)
+Launch the command line interface and execute the following commands, where `<key>` is your product key:
+```
+  mkdir MPCC
+  cd MPCC/
+  curl -OL https://github.com/merly-ai/MP-CodeCheckBin-RedHat/raw/main/bin/latest/MerlyInstaller
+  chmod +x MerlyInstaller
+  ./MerlyInstaller -k <key> install
+```
+
+
+### Linux (SUSE)
+Launch the command line interface and execute the following commands, where `<key>` is your product key:
 ```
   mkdir MPCC
   cd MPCC/
@@ -35,8 +48,56 @@ For your setup in Linux SUSE, go to the Command Line Interface (CLI) and execute
   chmod +x MerlyInstaller
   ./MerlyInstaller -k <key> install
 ```
-Note that if you previously installed MP-CodeCheck but now have a product key, running the MerlyInstaller step will register
-the key, and is safe to be performed.
+
+
+### Linux (Ubuntu)
+Launch the command line interface and execute the following commands, where `<key>` is your product key:
+```
+  mkdir MPCC
+  cd MPCC/
+  curl -OL https://github.com/merly-ai/MP-CodeCheckBin-Ubuntu/raw/main/bin/latest/MerlyInstaller
+  chmod +x MerlyInstaller
+  ./MerlyInstaller -k <key> install
+```
+
+
+### MacOS arm64 (ARM M1 CPU)
+Launch Terminal and execute the following commands, where `<key>` is your product key:
+```
+  mkdir MPCC
+  cd MPCC
+  curl -L -o MerlyInstaller https://github.com/merly-ai/MP-CodeCheckBin-MacOS/raw/main/bin/latest/MerlyInstaller-arm64
+  chmod +x MerlyInstaller
+  ./MerlyInstaller -k <key> install
+```  
+
+For MacOS, we recommend launching MPCC using iTerm2, due to its support of a broader color scheme than is possible for
+the default MacOS terminal. You can download it for free here: https://iterm2.com/downloads.html.
+
+
+### MacOS x64 (Intel x86 CPU)
+Launch Terminal and execute the following commands, where `<key>` is your product key:
+```
+  mkdir MPCC
+  cd MPCC
+  curl -L -o MerlyInstaller https://github.com/merly-ai/MP-CodeCheckBin-MacOS/raw/main/bin/latest/MerlyInstaller-x64
+  chmod +x MerlyInstaller
+  ./MerlyInstaller -k <key> install
+```  
+
+For MacOS, we recommend launching MPCC using iTerm2, due to its support of a broader color scheme than is possible for
+the default MacOS terminal. You can download it for free here: https://iterm2.com/downloads.html.
+
+
+### Windows (64-bit) 
+
+Launch cmd.exe (PowerShell will NOT work because it does not have the proper native curl parameter support). Navigate to your user preffered installation directory (e.g., `cd C:\Users\Paul`). Once there, execute the following commands. where `<key>` is your product key:
+```
+  mkdir MPCC
+  cd MPCC
+  curl -LO https://github.com/merly-ai/MP-CodeCheckBin-Windows/raw/main/bin/latest/MerlyInstaller.exe
+  MerlyInstaller -k <key> install
+```
   
 You’re now ready to launch MP-CodeCheck!
 
@@ -44,24 +105,32 @@ You’re now ready to launch MP-CodeCheck!
 Now that setup is complete, let’s launch MPCC to perform inference analysis. From the command line interface (CLI), type the
 following (where ”[code base folder]” is a directory that contains the code you want to analyze):
 
+
+### Windows
 ```
-./MPCC.exe infer -D [code base folder]
+MPCC.exe infer -D [code base folder]
 ```
 
-When run successfully, MPCC will display information that looks similar to the following screen. This shows the progress of MPCC extracting the code DNA from the training data.
+### MacOS, Linux
+```
+./MPCC infer -D [code base folder]
+```
 
-<img width="674" alt="Training2" src="https://user-images.githubusercontent.com/92695077/163893521-55bebb7a-7004-4f56-a2cd-af6de7b1dce7.png">
+
+When run successfully, MPCC will display information that looks similar to the following screen. This shows the progress of MPCC extracting the code DNA from the training model.
+
+<img width="769" alt="launch1" src="https://user-images.githubusercontent.com/92695077/168645632-5d1c34bd-9276-422b-918b-a201634c116b.png">
 
 When MPCC has loaded its trained model and processed the code DNA, it begins inference analysis on all source code that
 it finds in the files of the directory (or subdirectories) you have supplied when launching it. The image below shows an example of
 MPCC’s inference progress in analyzing a code repository, how much work it has completed, and how much work is remaining.
 
-<img width="675" alt="Inference2" src="https://user-images.githubusercontent.com/92695077/163893537-aab75054-16bf-4e85-9696-40e00e8fe7ca.png">
+<img width="769" alt="launch2" src="https://user-images.githubusercontent.com/92695077/168645747-1dab8bd9-09c7-44f0-9a43-7471d24419c0.png">
 
 When inference analysis has completed, the Code View screen will appear (see image below), which will allow a user to
 analyze the inference results as discussed in the next section.
 
-<img width="705" alt="CodeView" src="https://user-images.githubusercontent.com/92695077/163842762-71dd7e1f-4f25-4be2-a59c-b51bec239480.png">
+<img width="769" alt="CodeView" src="https://user-images.githubusercontent.com/92695077/168645813-1df7158b-9538-40b6-8fea-185e9d3ae7da.png">
 
 
 ## Exploring MPCC's Inference Results
@@ -70,7 +139,7 @@ After inference analysis is performed, MPCC will show a user interface that incl
 We call this screen the *Code View*, which will be described in more detail in Views section of this manual. The image below provides an
 example of an anomalous code example found by MPCC.
 
-![CodeView with identifiers](https://user-images.githubusercontent.com/92695077/163843319-26c465c0-c735-49fa-92a4-392f28923a92.png)
+<img width="1395" alt="anomaly" src="https://user-images.githubusercontent.com/92695077/168645954-1e9d38e3-bde7-4543-a732-4a71835c04bd.png">
 
 Here's a description of what you'll see on this screen:
 
@@ -123,33 +192,33 @@ general anomaly information, anomalies by file, anomalies per file, and so forth
 **Code View:** This is the view of all of the code, with the expressions found highlighted. This view is the default view when
 MPCC is initially run.
 
-<img width="705" alt="CodeView" src="https://user-images.githubusercontent.com/92695077/163855031-ea4db9ed-1ee5-4ac5-a5f5-a0d517ba449a.png">
+<img width="769" alt="CodeView" src="https://user-images.githubusercontent.com/92695077/168646168-fe68083a-f342-4c1a-9756-4fc80afdbfad.png">
 
 **Anomalies View:** Press ‘a’ to switch to the Anomalies view. This view shows all of the expressions in the code (across all
 files) that MPCC has determined to be an anomaly, sorted by score. You can move up and down the list using the up and down
 arrows, or the Page Up and Page Down keys. Press Enter with an anomaly highlighted to switch back to the Code View of that
 specific anomaly.
 
-<img width="705" alt="AnomaliesView" src="https://user-images.githubusercontent.com/92695077/163855188-f5023c56-bbc2-4071-ba67-0651d6cbfdeb.png">
+<img width="769" alt="AnomaliesView" src="https://user-images.githubusercontent.com/92695077/168646244-5f6a4f07-377f-48af-807e-b7b3ca914c05.png">
 
 **Files View:** Press ‘f’ to switch to the Files view. This view shows all of the source code files, with the total number of
 expressions MPCC found in each file. You can move up and down the list using the up and down arrows, or the Page Up and
 Page Down keys. Press Enter with a file highlighted to switch back to the Code View of the expressions within that specific file.
 
-<img width="705" alt="FilesView" src="https://user-images.githubusercontent.com/92695077/163855836-3a8ac307-5518-4796-ac55-8af3bcc9ec16.png">
+<img width="769" alt="FilesView" src="https://user-images.githubusercontent.com/92695077/168646288-f5979345-e471-4d28-9c30-56a591dbec47.png">
 
 **Expressions View:** Press ‘e’ to switch to the Expressions view. This view shows all of the expressions in the current file,
 sorted by score. You can move up and down the list using the up and down arrows, or the Page Up and Page Down keys. Also
 note that you can toggle the sort between code location and score by pressing the ‘s’ key. Press Enter with an expression
 highlighted to switch back to the Code View with that specific expression highlighted.
 
-<img width="705" alt="ExpressionsView" src="https://user-images.githubusercontent.com/92695077/163855949-501e65c3-93bc-4636-8a03-66769259c753.png">
+<img width="675" alt="ExpressionsView" src="https://user-images.githubusercontent.com/92695077/168646327-a036401e-03fd-4995-b55b-85b31f34f07e.png">
 
 **Details View:** Press ‘d’ to switch to the Details view. This view shows the detail of the currently selected expression. The
 detail lets you know how many anomalies MPCC identified within the expression, the cost, and the total score. Press ‘d’ to
 return to Code View.
 
-<img width="705" alt="DetailsView" src="https://user-images.githubusercontent.com/92695077/163856242-1b2c3abe-c710-49e6-b4a0-b39df1eba9de.png">
+<img width="675" alt="DetailsView" src="https://user-images.githubusercontent.com/92695077/168646359-b68e6f97-e20b-4718-b25f-dbb924ed12f9.png">
 
 **Help Pop-up:** In addition to the above views, you can press the ‘h’ key in any view to bring up the help screen which will
 show you all of the hot keys and their functions.
@@ -191,6 +260,16 @@ The following lists the ways MPCC’s inference results on source code data can 
 **Default:** 0
 
 **Adjust:** ',' to decrease, '.' to increase, 'm' to reset to 0 (minimum)
+
+***Displayed items:***
+
+**Options:**
+*All expressions
+*Anomalies only
+
+**Default:** All expressions
+
+**Toggle:** '0' key
 
 ***Hide/Show Known Good:***
 
@@ -235,12 +314,12 @@ hex value of the color you’d like, and change the value of the associated item
 
 For example, you can set *anomaly_background* to RGB *ab852e* to change the highlight color of the anomalous expressions to dark orange.
 
-![orange_anomalies](https://user-images.githubusercontent.com/92695077/163864743-74a2e617-73f7-4788-ba9c-ee4ba5edf073.png)
+<img width="675" alt="orange_anomalies" src="https://user-images.githubusercontent.com/92695077/168646521-ea3227db-7dcd-46e9-82a1-a40255abbb96.png">
 
 Or, set *highlight_background* to RGB *4a9de0* to change the highlight color of the non-anomalous expressions to light
 blue.
 
-![blue_expressions](https://user-images.githubusercontent.com/92695077/163864865-83446d88-d972-4731-81c1-09de3207924b.png)
+<img width="675" alt="blue_expressions" src="https://user-images.githubusercontent.com/92695077/168646556-403f89e2-184f-4121-89ef-5e37cb77ea22.png">
 
 **Log Files:**
 
