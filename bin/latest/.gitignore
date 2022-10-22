@@ -1,2 +1,7 @@
 models/
 update.sh
+logs/
+output/
+source/
+.git-root/
+.mentor/
